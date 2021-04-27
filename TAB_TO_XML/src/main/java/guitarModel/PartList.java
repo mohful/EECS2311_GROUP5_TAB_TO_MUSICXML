@@ -9,7 +9,7 @@ public class PartList {
 
 	@JacksonXmlProperty(localName = "score-part")
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<ScorePart> scoreParts;
+	private ArrayList<ScorePart> scoreParts;
 
 	public ArrayList<ScorePart> getScoreParts() {
 		return scoreParts;

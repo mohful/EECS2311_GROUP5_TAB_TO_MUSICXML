@@ -7,6 +7,7 @@ public class ScoreInstrument {
 	@JacksonXmlProperty(isAttribute=true)
 	String id;
 	
+	
 	@JacksonXmlProperty(localName = "instrument-name")
 	String instrumentName; 
 	

@@ -11,6 +11,8 @@ public class Beam {
 	@JacksonXmlText
 	String value;
 	
+	public Beam() {}
+	
 	public String getValue() {
 		return value;
 	}
@@ -25,7 +27,7 @@ public class Beam {
 		
 	}
 	
-	public String getID() { 
+	public String getNumber() { 
 		
 		return number;
 	}

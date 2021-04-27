@@ -1,38 +1,12 @@
 package guitarModel;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-public class Note {
-	Pitch pitch;
-	String duration;
-	String voice;
-	String type;
-	Notations notations;
-	
 
-	//Drum fields only
-	//Beam value; 
-	//String notehead;
-	//Unpitched unpitched_value;
-	//Missing instrument ID...no clue how to do that and what that means for the note
-	
-  
-    
-//	public String getNoteHead() { 
-	//	return null;
-		//return this.notehead;
-		
-	//}
-	
-	//public void setNoteHead(String note) { 
-		
-		//this.notehead = note;
-		
-	//}
-	
-	//public String getBeamValue() { 
-		
-		//return null;
-		
-	//}
+public class Note {
+	private Pitch pitch;
+	private String duration;
+	private String voice;
+	private String type;
+	private Notations notations;
 	
 	public Pitch getPitch() {
 		return pitch;

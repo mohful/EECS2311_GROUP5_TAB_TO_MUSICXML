@@ -8,11 +8,11 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Part {
 
 	@JacksonXmlProperty(isAttribute = true)
-	String id;
+	private String id;
 
 	@JacksonXmlProperty(localName = "measure")
     @JacksonXmlElementWrapper(useWrapping = false)
-	public ArrayList<Measure> measures;
+	private ArrayList<Measure> measures;
 	public String getId() {
 		return id;
 	}

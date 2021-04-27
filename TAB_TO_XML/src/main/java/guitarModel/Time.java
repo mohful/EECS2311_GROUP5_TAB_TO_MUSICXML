@@ -3,10 +3,10 @@ package guitarModel;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Time {
-	String beats;
+	private String beats;
 
 	@JacksonXmlProperty(localName = "beat-type")
-	String beatType;
+	private String beatType;
 
 	public Time() {}
 	public Time(String beats, String beatType) {

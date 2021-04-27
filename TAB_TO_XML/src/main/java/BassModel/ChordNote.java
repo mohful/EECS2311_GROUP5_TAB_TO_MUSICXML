@@ -1,10 +1,13 @@
 package BassModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonPropertyOrder({"chord", "pitch", "duration", "voice", "type", "notations"})
 public class ChordNote extends Note  {
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlProperty(localName = "chord")
 	String chord;
 	Pitch pitch;

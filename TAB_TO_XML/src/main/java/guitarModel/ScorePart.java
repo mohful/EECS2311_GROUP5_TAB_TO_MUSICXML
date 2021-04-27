@@ -4,10 +4,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class ScorePart {
 	@JacksonXmlProperty(isAttribute=true)
-	String id;
+	private String id;
 
 	@JacksonXmlProperty(localName = "part-name")
-	String partName; 
+	private String partName; 
 
 	public ScorePart() {}
 	

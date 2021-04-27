@@ -1,8 +1,8 @@
 package guitarModel;
 
 public class Clef {
-	String sign;
-	String line;
+	private String sign;
+	private String line;
 	
 	public Clef() {}
 	public Clef(String sign, String line) {

@@ -10,17 +10,15 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 public class ScorePartwise {
 
 	@JacksonXmlProperty(isAttribute = true)
-
-	public String version;
+	private String version;
 	
 	@JacksonXmlProperty(localName = "part-list")
-
-	public PartList partList;
+	private PartList partList;
 	
 	@JacksonXmlProperty(localName = "part")
-
     @JacksonXmlElementWrapper(useWrapping = false)
-	public ArrayList<Part> parts;
+	private ArrayList<Part> parts;
+	
 	public String getVersion() {
 		return version;
 	}

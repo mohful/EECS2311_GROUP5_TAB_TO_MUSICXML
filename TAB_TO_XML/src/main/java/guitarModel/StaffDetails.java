@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StaffDetails {
 	@JacksonXmlProperty(localName = "staff-lines")
-	String staffLines;
+	private String staffLines;
 
 	@JacksonXmlProperty(localName = "staff-tuning")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<StaffTuning> staffTunings;
+	private ArrayList<StaffTuning> staffTunings;
 
 	public String getStaffLines() {
 		return staffLines;

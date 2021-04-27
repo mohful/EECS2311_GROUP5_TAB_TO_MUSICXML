@@ -1,15 +1,23 @@
 package BassModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Attributes {
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	int divisions;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Key key;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Time time;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Clef clef;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlProperty(localName = "staff-details")
 	StaffDetails staffDetails;
 

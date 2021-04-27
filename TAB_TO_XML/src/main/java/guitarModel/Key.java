@@ -1,7 +1,7 @@
 package guitarModel;
 
 public class Key {
-	String fifths;
+	private String fifths;
 
 	public Key() {}
 	public Key(String fifths) {

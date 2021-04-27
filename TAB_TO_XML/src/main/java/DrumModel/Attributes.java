@@ -1,21 +1,22 @@
 package DrumModel;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-//import guitarModel.Clef;
-//import guitarModel.Key;
-import guitarModel.StaffDetails;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 
 
 public class Attributes {
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	int divisions;
-
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Key key;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Time time;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Clef clef;
-
-	@JacksonXmlProperty(localName = "staff-details")
-	StaffDetails staffDetails;
 
 	public int getDivisions() {
 		return divisions;
@@ -49,21 +50,7 @@ public class Attributes {
 		this.clef = clef;
 	}
 
-	public StaffDetails getStaffDetails() {
-		return staffDetails;
-	}
-
-	public void setStaffDetails(StaffDetails staffDetails) {
-		this.staffDetails = staffDetails;
-	}
 
 	public Attributes() {}
-	public Attributes(int divisions, Key key, Time time, Clef clef, StaffDetails staffDetails) {
-		super();
-		this.divisions = divisions;
-		this.key = key;
-		this.time = time;
-		this.clef = clef;
-		this.staffDetails = staffDetails;
-	}
+	
 }

@@ -1,8 +1,8 @@
 package guitarModel;
 
 public class Pitch {
-	String step;
-	String octave;
+	private String step;
+	private String octave;
 	public String getStep() {
 		return step;
 	}

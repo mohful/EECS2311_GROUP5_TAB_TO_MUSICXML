@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class AlteredPitch extends Pitch {
 	
 	@JacksonXmlProperty(localName = "alter")
-	String alter;
+	private String alter;
 
 	public void setAlter(String alter) { 
 		this.alter = alter; 

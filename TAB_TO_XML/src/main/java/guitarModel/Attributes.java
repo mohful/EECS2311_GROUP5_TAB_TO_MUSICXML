@@ -1,17 +1,25 @@
 package guitarModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Attributes {
 
-	int divisions;
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private int divisions;
 
-	Key key;
-	Time time;
-	Clef clef;
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private Key key;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private Time time;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private Clef clef;
 
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlProperty(localName = "staff-details")
-	StaffDetails staffDetails;
+	private StaffDetails staffDetails;
 
 	public int getDivisions() {
 		return divisions;

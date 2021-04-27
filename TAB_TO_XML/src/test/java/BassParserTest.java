@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import TAB_TO_XML.BParser;
+import TAB_TO_XML.GuitarParser;
 
-class BParserTest {
+class BassParserTest {
 	
 	@Test
 	public void test_durationCount_01() {
@@ -62,26 +63,30 @@ class BParserTest {
 	
 	@Test
 	public void test_divisionCount_01() {
+		//Assume a 4/4 time signature
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-0---------------");
 		a.add("-0---------------");
 		a.add("-1---------------");
 		a.add("-2---------------");
-		int b = BParser.divisionCount(a);
-		int c = 2;
+		String temp = a.get(0);
+		int b = BParser.divisionCount(temp,4);
+		int c = 4;
 		assertEquals(b, c);
 		
 	}
 	
 	@Test
 	public void test_divisionCount_02() {
+		//Assume a 4/4 time signature 
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		int b = BParser.divisionCount(a);
-		int c = 2;
+		String temp = a.get(0);
+		int b = BParser.divisionCount(temp,4);
+		int c = 4;
 		assertEquals(b, c);
 		
 	}
@@ -95,8 +100,8 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(2, a.get(2).charAt(7));
-		String c = "A#";
+		String b = BParser.stepCount(0,0,a);
+		String c = "G";
 		assertEquals(b, c);
 	}
 	
@@ -107,8 +112,8 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(3, a.get(3).charAt(5));
-		String c = "F#";
+		String b = BParser.stepCount(0,0,a);
+		String c = "G";
 		assertEquals(b, c);
 	}
 	
@@ -121,7 +126,7 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.octaveCount(0, a.get(0).charAt(11));
+		String b = BParser.octaveCount(0, Character.getNumericValue(a.get(0).charAt(11)));
 		String c = "2";
 		assertEquals(b, c);
 	}
@@ -133,7 +138,7 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.octaveCount(2, a.get(0).charAt(15));
+		String b = BParser.octaveCount(2, Character.getNumericValue(a.get(2).charAt(7)));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -147,8 +152,8 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
-		String c = "1";
+		String b = BParser.parseAlter(BParser.stepCount(0,0,a));
+		String c = "0";
 		assertEquals(b, c);
 	}
 	
@@ -159,7 +164,7 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
+		String b = BParser.parseAlter(BParser.stepCount(0, 0,a));
 		String c = "0";
 		assertEquals(b, c);
 	}
@@ -167,7 +172,7 @@ class BParserTest {
 /*******************************************************************/
 	
 	@Test
-	public void test_method1_01() {
+	public void test_tabToCollection_01() {
 		ArrayList<String> a = new ArrayList<>();
 		ArrayList<String> b = new ArrayList<>();
 		ArrayList<ArrayList<String>> c = new ArrayList<>();
@@ -188,7 +193,7 @@ class BParserTest {
 	}
 	
 	@Test
-	public void test_method2_01() {
+	public void test_collectionToMeasure_01() {
 		ArrayList<String> a = new ArrayList<>();
 		ArrayList<String> b = new ArrayList<>();
 		ArrayList<ArrayList<String>> c = new ArrayList<>();
@@ -210,10 +215,76 @@ class BParserTest {
 		c.add(b);
 		d = BParser.collectionToMeasure(a);
 		
-		assertEquals(c.get(0).get(0), d.get(0).get(0));
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 4; j++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
+	}
+	@Test
+	public void test_collectionToMeasure_02() {
+		ArrayList<String> a = new ArrayList<>();
+		ArrayList<String> b = new ArrayList<>();
+		ArrayList<ArrayList<String>> c = new ArrayList<>();
+		ArrayList<ArrayList<String>> d = new ArrayList<>();
+		a.add("|-----------0-----||----------0--------4|");
+		a.add("|---------0---0---||----------0--------||");
+		a.add("|-------1-------1-||*---------1-------*||");
+		a.add("|-----2-----------||*---------2-------*||");
+		b.add("-----------0-----");
+		b.add("---------0---0---");
+		b.add("-------1-------1-");
+		b.add("-----2-----------");
+		c.add(b);
+		b = new ArrayList<String>();
+		b.add("|----------0--------4");
+		b.add("|----------0--------|");
+		b.add("|*---------1-------*|");
+		b.add("|*---------2-------*|");
+		c.add(b);
+		d = BParser.collectionToMeasure(a);
+		
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 4; j++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
 	}
 	
-/*******************************************************************/
-
+	@Test
+	public void test_collectionToMeasure_03() {
+		ArrayList<String> a = new ArrayList<>();
+		ArrayList<String> b = new ArrayList<>();
+		ArrayList<ArrayList<String>> c = new ArrayList<>();
+		ArrayList<ArrayList<String>> d = new ArrayList<>();
+		a.add("|-----------0-----||----------0--------||");
+		a.add("|---------0---0---||----------0--------||");
+		a.add("|-------1-------1-||*---------1-------*||");
+		a.add("|-----2-----------||*---------2-------*||");
+		b.add("-----------0-----");
+		b.add("---------0---0---");
+		b.add("-------1-------1-");
+		b.add("-----2-----------");
+		c.add(b);
+		b = new ArrayList<String>();
+		b.add("|----------0--------|");
+		b.add("|----------0--------|");
+		b.add("|*---------1-------*|");
+		b.add("|*---------2-------*|");
+		c.add(b);
+		d = BParser.collectionToMeasure(a);
+		
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 4; j++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
+	}
 	
 }

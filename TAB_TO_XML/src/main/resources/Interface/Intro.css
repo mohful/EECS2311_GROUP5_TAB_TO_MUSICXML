@@ -1,8 +1,32 @@
-.root{
-    -fx-font-family: 'JetBrains Mono';
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-image: url("/Interface/Title.jpg");
-    -fx-background-repeat: no-repeat;
+.root {
+	-fx-background-image: url("/Interface/Title.jpg");
+	-fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
+}
+
+.styled-text-area {
+    -fx-effect: innershadow( gaussian , #00000015 , 5 , 0 , 2 , 2 );
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #ccc;
+    -fx-font-family: Courier New;
+    -fx-fontsize: 14px;
+    -fx-fontstyle: bold;
+}
+
+.highPriorityError {
+    -rtfx-background-color: #ffa6a6;
+}
+
+.mediumPriorityError {
+    -rtfx-background-color: #ffe2a3;
+}
+
+.lowPriorityError {
+    -rtfx-background-color: #ccfffd;
+}
+
+.noError  {
+    -rtfx-background-color: #00204020;
+    border: #cccccc;
 }

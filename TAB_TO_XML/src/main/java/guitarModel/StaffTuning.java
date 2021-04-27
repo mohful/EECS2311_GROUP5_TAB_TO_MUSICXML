@@ -7,14 +7,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class StaffTuning {
 
 	@JacksonXmlProperty(isAttribute=true)
-	int line;
+	private int line;
 
 	@JacksonXmlProperty(localName = "tuning-step")
 	@JsonProperty("tuning-step")
-	String tuningStep;
+	private String tuningStep;
 
 	@JacksonXmlProperty(localName = "tuning-octave")
-	String tuningOctave;
+	private String tuningOctave;
 
 	public int getLine() {
 		return line;

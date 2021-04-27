@@ -1,17 +1,26 @@
-package guitarModel;
+package BassModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class Barline {
 
+public class ForwardBarline {
 	@JacksonXmlProperty(isAttribute=true)
-	String location;
+	private String location;
 
 	@JacksonXmlProperty(localName = "bar-style")
-	String barStyle;
-
-	public Barline() {}
-	public Barline(String location, String barStyle) {
+	private String barStyle;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	@JacksonXmlProperty(localName = "repeat")
+	private BassRepeat repeat;
+	
+	public void setBassRepeat(BassRepeat r ) { 
+		this.repeat  = r; 
+	}
+	
+	public ForwardBarline() {}
+	public ForwardBarline(String location, String barStyle) {
 		super();
 		this.location = location;
 		this.barStyle = barStyle;
@@ -32,5 +41,4 @@ public class Barline {
 	public void setBarStyle(String barStyle) {
 		this.barStyle = barStyle;
 	}
-
 }

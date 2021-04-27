@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
+<?import org.fxmisc.richtext.CodeArea?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
-   <children>
-      <AnchorPane layoutX="-15.0" prefHeight="700.0" prefWidth="900.0" stylesheets="@Intro.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
+   <center>
+      <AnchorPane prefHeight="700.0" prefWidth="900.0" stylesheets="@Intro.css">
          <children>
-            <GridPane layoutX="7.0" layoutY="75.0" prefHeight="445.0" prefWidth="924.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="21.0">
+            <GridPane hgap="20.0" layoutX="13.0" layoutY="75.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.600000000000023">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -25,41 +25,26 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <TextArea fx:id="write" prefHeight="455.0" prefWidth="445.0" promptText="Paste a tablature here, or edit a browsed tablature!">
-                     <font>
-                        <Font name="Consolas Bold" size="14.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
-                  </TextArea>
                   <TextArea fx:id="view" editable="false" prefHeight="455.0" prefWidth="446.0" promptText="The converted MUSICXML will be displayed here!" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Courier New Bold" size="14.0" />
                      </font>
-                     <GridPane.margin>
-                        <Insets left="15.0" right="15.0" />
-                     </GridPane.margin>
                   </TextArea>
+                  <CodeArea fx:id="write" prefHeight="455.0" prefWidth="446.0" stylesheets="@Intro.css" />
                </children>
             </GridPane>
-            <Button fx:id="convert" layoutX="849.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" AnchorPane.bottomAnchor="116.4" AnchorPane.rightAnchor="36.99999999999997" />
-          <Button fx:id="browse" layoutX="25.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" AnchorPane.bottomAnchor="116.39999999999995" AnchorPane.leftAnchor="25.0" />
-            <GridPane layoutX="140.0" layoutY="532.0" prefHeight="102.0" prefWidth="506.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="254.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label fx:id="path" prefHeight="62.0" prefWidth="435.0" textFill="WHITE" wrapText="true" />
-               </children>
-               <padding>
-                  <Insets bottom="40.0" />
-               </padding>
-            </GridPane>
-            <Button fx:id="save" disable="true" layoutX="844.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Save File" AnchorPane.bottomAnchor="50.399999999999956" AnchorPane.rightAnchor="37.0" />
+            <Button fx:id="convert" layoutX="793.0" layoutY="568.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" AnchorPane.rightAnchor="13.399999999999977">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="16.0" />
+               </font></Button>
+          <Button fx:id="browse" layoutX="13.0" layoutY="568.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse..." AnchorPane.leftAnchor="13.0">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="16.0" />
+               </font></Button>
+            <Button fx:id="save" layoutX="819.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Export" AnchorPane.rightAnchor="14.600000000000023">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="16.0" />
+               </font></Button>
             <TilePane alignment="CENTER" layoutX="291.0" layoutY="25.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="25.0">
                <children>
                   <Label prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
@@ -69,8 +54,7 @@
                   </Label>
                </children>
             </TilePane>
-            <ChoiceBox fx:id="instrumentBox" layoutX="25.0" layoutY="663.0" prefHeight="22.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="25.0" />
-            <GridPane layoutX="25.0" layoutY="599.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="665.0">
+            <GridPane layoutX="13.0" layoutY="665.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="707.8000000000001">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
@@ -78,10 +62,28 @@
                   <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="getInstrument" prefHeight="34.0" prefWidth="185.0" textFill="WHITE" />
+                  <Label fx:id="getInstrument" prefHeight="34.0" prefWidth="185.0" textFill="WHITE">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
+            <TilePane alignment="CENTER" layoutX="216.0" layoutY="563.0" prefHeight="108.0" prefWidth="470.0" AnchorPane.leftAnchor="216.0" AnchorPane.rightAnchor="209.60000000000002">
+               <children>
+                  <TextArea fx:id="customization" prefHeight="108.0" prefWidth="474.0" promptText="Any time signature customizations should be added here. If not, the system will assume 4/4 for all measures!">
+                     <font>
+                        <Font name="Courier New Bold" size="14.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </TilePane>
+            <Button fx:id="edits" layoutX="14.0" layoutY="622.0" mnemonicParsing="false" onAction="#handleButtonEdits" text="Save..." AnchorPane.leftAnchor="13.0">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
-   </children>
-</AnchorPane>
+   </center>
+</BorderPane>

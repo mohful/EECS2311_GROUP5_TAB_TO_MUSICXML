@@ -49,8 +49,10 @@ import Interface.Controller;
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an integer that represents the division of the whole tablature.
 		 */
-		public static int divisionCount(ArrayList<String> parse) {
-			return (parse.get(0).length()-1) / 8;
+		public static int divisionCount(String line, int numerator) {
+			line = line.replaceAll("|", "");
+			line = line.replaceAll("\\*", "");
+			return line.length() / numerator; 
 		}
 
 
@@ -60,15 +62,21 @@ import Interface.Controller;
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an String that represents the fret of the note.
 		 */
-		public static String stepCount(int row, int column) {
+		public static String stepCount(int row, int column, ArrayList<String> tuningSteps) {
 
 			String[][] fretboard = new String[][] {
 				{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
 				{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
 				{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
-				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },};
+				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
 				
-				return fretboard[row][column];
+			for (int i = 0; i < fretboard.length; i++) {
+				if (fretboard[i][0].equals(tuningSteps.get(row))) {
+					return fretboard[i][column];
+				}
+			}
+			
+			return fretboard[row][column];
 		}
 
 		/**
@@ -77,17 +85,32 @@ import Interface.Controller;
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an String that represents the type of the note.
 		 */
-		public static String typeDeclare(int duration) {
-			String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "", "quarter and half", "", "whole" };
-			return types[duration];
+		public static String typeDeclare(int duration, int division) {
+			double noteValue = (4.0 * (double) division) / duration;
+			if (noteValue >= 1024 ) {return "1024th";} 
+			else if (noteValue >= 512) {return "512th"; }
+			else if (noteValue >= 256) { return "256th"; } 
+			else if (noteValue >= 128) { return "128th"; } 
+			else if (noteValue >= 64) { return "64th"; } 
+			else if (noteValue >= 32) { return "32nd"; } 
+			else if (noteValue >= 16) { return "16th"; } 
+			else if (noteValue >= 8) { return "8th"; } 
+			else if (noteValue >= 4) { return "quarter";} 
+			else if (noteValue >= 2) { return "half" ; } 
+			else if (noteValue >= 1) { return "whole" ; } 
+			else if (noteValue >= 0.5) { return "breve"; } 
+			else if (noteValue >= 0.25) { return "long"; } 
+			else if (noteValue >= 0.125) {return "maxima"; }
+			return ""; 
+			
 		}
 
 		public static String octaveCount(int row, int column) {
 			String[][] fretboard = new String[][] { 
-				{ "2", "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3" },
-				{ "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2" },
-				{ "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2", "2" },
-				{ "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "2" },};
+				{ "2", "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
+				{ "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3" },
+				{ "1", "1", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2", "2" },
+				{ "1", "1", "1", "1", "1", "1", "1", "1", "2", "2", "2", "2", "2" }};
 
 				return fretboard[row][column];
 		}
@@ -125,21 +148,76 @@ import Interface.Controller;
 			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 			ArrayList<String> eachSection = new ArrayList<String>();
 			
+			String line="";
+
 			// assumes that all the measures have 17 dashes/notes excluding the vertical lines
 			for (int z = 1; z < input.size(); z=z+4){
-				for (int i = 0; i < (input.get(0).length()-1)/21; i++) {	
+				for (int i = 0; i < (input.get(z-1).split("\\|").length-1); i++) {	
 					for (int j = 0; j < 4; j++) {
-						eachSection.add(input.get(j+z-1).substring(1+21*i, 21*(i+1)));
+						if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+							int count=0;
+							while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+								count++;
+							}
+							line=splitter(input.get(j+z-1),count,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
+						} 
+						else {
+							line=splitter(input.get(j+z-1),0,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
+						}
 					}
-					sections.add(eachSection);
-					eachSection = new ArrayList<String>();
+					if(!(line.equals(""))) {
+						sections.add(eachSection);
+						eachSection = new ArrayList<String>();
+					}
 				}
 			}
 			
+
 			// returns  2d array of substrings of the measure excluding the vertical lines	
 			return sections;
-												
+
+					
 		}
+							
+
+		private static String splitter(String note, int count,int element) { 
+			note=note.substring(count);
+			int digits=0;
+			int start=0,end=0;
+			for (int i = 0; i < note.length(); i++) { 
+				if (note.subSequence(i, i+1).equals("|")) { 
+					digits++;
+					if (digits==element+1)
+						start=i;
+					else if(digits==element+2)
+						end=i;
+				}
+			}
+			if (start+1==end)
+				return "";
+			else {
+				if(start>0 && end<(note.length()-1) && note.substring(start-1, start).equals("|")
+						&& note.substring(end+1, end+2).equals("|")) {
+					return "|"+note.substring(start+1, end)+"|";
+				}
+				if(start>0 &&  note.substring(start-1, start).equals("|")){
+					return "|"+note.substring(start+1, end);
+				}
+				if(end==(note.length()-2) && note.substring(end+1, end+2).equals("|")) {
+					return note.substring(start+1, end)+"|";
+				}
+				else {
+					return note.substring(start+1, end);
+				}
+			}
+		}
+
+		
+		
 		
 		public static String parseAlter(String note) { 
 			
